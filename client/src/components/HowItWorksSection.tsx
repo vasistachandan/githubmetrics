@@ -10,8 +10,8 @@ interface StepProps {
 function Step({ number, title, description }: StepProps) {
   return (
     <div className="text-center">
-      <div className="w-16 h-16 mx-auto rounded-full bg-primary bg-opacity-10 flex items-center justify-center mb-4 border border-primary">
-        <span className="text-xl font-bold text-primary">{number}</span>
+      <div className="w-16 h-16 mx-auto rounded-full bg-primary flex items-center justify-center mb-4 border border-primary">
+        <span className="text-xl font-bold text-white">{number}</span>
       </div>
       <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
       <p className="text-foreground">
