@@ -23,7 +23,7 @@ export default function Footer() {
               <a href="#" className="text-foreground hover:text-white transition-colors">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="text-foreground hover:text-white transition-colors">
+              <a href="https://github.com/vasistachandan" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-white transition-colors">
                 <Github className="h-5 w-5" />
               </a>
               <a href="#" className="text-foreground hover:text-white transition-colors">
