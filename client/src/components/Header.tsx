@@ -39,15 +39,6 @@ export default function Header() {
               How It Works
             </a>
           </Link>
-          <a 
-            href="https://github.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-sm font-medium hover:text-white transition-colors flex items-center"
-          >
-            <GitFork className="h-4 w-4 mr-2" />
-            Source Code
-          </a>
         </nav>
         
         <Button 
@@ -83,16 +74,6 @@ export default function Header() {
                 How It Works
               </a>
             </Link>
-            <a 
-              href="https://github.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-sm font-medium hover:text-white transition-colors flex items-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <GitFork className="h-4 w-4 mr-2" />
-              Source Code
-            </a>
           </nav>
         </div>
       )}
