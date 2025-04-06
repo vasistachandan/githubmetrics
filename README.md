@@ -129,3 +129,124 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 Developed for Frontend Developer Role Assignment
+
+## Deployment
+
+There are several options for deploying this application:
+
+### Option 1: Deploying on Replit
+
+This project is already configured to work seamlessly on Replit:
+
+1. Fork this Replit project to your account
+2. Click the "Deploy" button in the Replit interface
+3. Follow the prompts to configure your deployment
+4. Your application will be available at your-repl-name.your-username.repl.co
+
+### Option 2: Deploying on Vercel
+
+For a production-grade deployment:
+
+1. Push your code to a GitHub repository
+2. Connect your GitHub account to Vercel (vercel.com)
+3. Import your repository in Vercel
+4. Configure the build settings:
+   - Build Command: Use the appropriate build command
+   - Output Directory: `dist`
+5. Set environment variables if needed
+6. Deploy with the "Deploy" button
+
+### Option 3: Manual Deployment
+
+For manual deployment to any hosting service:
+
+1. Build the application using the standard build command
+
+2. The build process will create a `dist` directory with optimized static files
+
+3. Deploy the contents of the `dist` directory to your web server
+
+4. Configure your web server to serve the application:
+   - For Nginx, configure it to serve static files and proxy API requests to the Express server
+   - For Apache, use an .htaccess file to handle SPA routing
+
+5. Start the Express server (for API endpoints) in production mode
+
+### Environment Configuration
+
+For production deployment, consider the following best practices:
+
+1. Use environment variables for any configuration settings
+2. Set up CORS properly for your domain
+3. Consider implementing rate limiting for API endpoints
+4. Add proper error logging for production environments
+5. Set up HTTPS for secure communication
+
+Note: This application uses GitHub's public API which has rate limits. For production use with higher API limits, consider implementing GitHub OAuth authentication.
+
+## Local Development Setup
+
+Follow these steps to set up the project locally for development:
+
+### Prerequisites
+
+- Node.js (v18 or later recommended)
+- A package manager like npm or yarn
+- Git
+
+### Step 1: Clone the Repository
+
+Clone the GitHub repository to your local machine and navigate to the project directory:
+
+```
+git clone https://github.com/yourusername/github-metrics-dashboard.git
+cd github-metrics-dashboard
+```
+
+### Step 2: Install Dependencies
+
+Install all required packages for both frontend and backend using your preferred package manager.
+
+This will install all dependencies listed in package.json, including:
+- React and React DOM
+- TypeScript
+- Tailwind CSS
+- ShadCN UI components
+- React Query
+- Express.js
+- Drizzle ORM
+- And other development dependencies
+
+### Step 3: Environment Setup
+
+Create a `.env` file in the root directory with the following variables (if needed):
+
+```
+PORT=5000
+NODE_ENV=development
+```
+
+### Step 4: Start Development Server
+
+Run the development server command which will start both the Express backend and the Vite frontend server.
+
+This will:
+- Start the Express server on port 5000
+- Start the Vite development server
+- Enable hot module replacement for React components
+- Watch for changes to backend files
+
+### Step 5: Access the Application
+
+Open your browser and navigate to:
+```
+http://localhost:5000
+```
+
+### Development Tips
+
+1. **Browser Developer Tools**: Use React DevTools extension for debugging components
+2. **API Testing**: Use tools like Postman or Thunder Client to test the Express endpoints directly
+3. **TypeScript**: Take advantage of TypeScript's type checking
+4. **React Query DevTools**: The application includes React Query DevTools in development mode for inspecting queries and cache
+5. **Tailwind CSS**: Use the Tailwind CSS IntelliSense extension in VSCode for better developer experience
