@@ -6,6 +6,15 @@ import axios from "axios";
 export async function registerRoutes(app: Express): Promise<Server> {
   // GitHub API endpoints
   const GITHUB_API_BASE = "https://api.github.com";
+  // Use GitHub token from environment variables if available
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+
+  // Common headers for GitHub API requests
+  const githubHeaders = {
+    Accept: "application/vnd.github.v3+json",
+    "User-Agent": "GitHub-Metrics-App",
+    ...(GITHUB_TOKEN && { Authorization: `token ${GITHUB_TOKEN}` })
+  };
 
   // GitHub User endpoint
   app.get("/api/github/user/:username", async (req: Request, res: Response) => {
@@ -17,10 +26,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const response = await axios.get(`${GITHUB_API_BASE}/users/${username}`, {
-        headers: {
-          Accept: "application/vnd.github.v3+json",
-          "User-Agent": "GitHub-Metrics-App"
-        }
+        headers: githubHeaders
       });
       
       res.json(response.data);
@@ -58,10 +64,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             per_page: 100,
             page: page
           },
-          headers: {
-            Accept: "application/vnd.github.v3+json",
-            "User-Agent": "GitHub-Metrics-App"
-          }
+          headers: githubHeaders
         });
         
         if (response.data.length > 0) {
@@ -99,10 +102,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           sort: "updated",
           per_page: 5 // Get top 5 most recently updated repos
         },
-        headers: {
-          Accept: "application/vnd.github.v3+json",
-          "User-Agent": "GitHub-Metrics-App"
-        }
+        headers: githubHeaders
       });
       
       const repos = reposResponse.data;
@@ -120,10 +120,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 since: oneYearAgo.toISOString(),
                 per_page: 100
               },
-              headers: {
-                Accept: "application/vnd.github.v3+json",
-                "User-Agent": "GitHub-Metrics-App"
-              }
+              headers: githubHeaders
             }
           );
           
