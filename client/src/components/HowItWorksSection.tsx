@@ -73,11 +73,11 @@ export default function HowItWorksSection() {
                   </p>
                   <div className="mt-2 flex items-center">
                     <Avatar className="h-10 w-10 bg-primary text-white">
-                      <AvatarFallback>JS</AvatarFallback>
+                      <AvatarFallback>GH</AvatarFallback>
                     </Avatar>
                     <div className="ml-3">
-                      <p className="text-white font-medium">Jane Smith</p>
-                      <p className="text-sm text-foreground">Senior Frontend Developer</p>
+                      <p className="text-white font-medium">GitHub User</p>
+                      <p className="text-sm text-foreground">Open Source Contributor</p>
                     </div>
                   </div>
                 </div>
