@@ -14,6 +14,7 @@ GitHub Metrics Dashboard is a responsive web application that visualizes GitHub 
 - **Responsive Design**: Fully optimized for mobile, tablet, and desktop devices
 - **Fast Performance**: Efficient data fetching with pagination support (up to 300 repositories)
 - **Interactive UI**: Modern, intuitive interface with smooth transitions
+- **GitHub API Authentication**: Uses GitHub token for authenticated API requests to avoid rate limits
 
 ## Technical Stack
 
@@ -65,6 +66,13 @@ The application leverages React Query for efficient data fetching, with the foll
 - **Error Handling**: Comprehensive error states with user-friendly messages
 - **Loading States**: Skeleton loaders for improved user experience
 
+### GitHub API Authentication
+To overcome GitHub API rate limits:
+- **Token-based Authentication**: All GitHub API requests use a GitHub personal access token
+- **Increased Rate Limits**: Authentication increases the rate limit from 60 to 5,000 requests per hour
+- **Security**: Token is stored as an environment variable on the server side
+- **Common Headers**: Centralized authentication logic for all API endpoints
+
 ### Responsive Design
 The UI is designed with a mobile-first approach using Tailwind CSS:
 - **Breakpoints**: Optimized for mobile, tablet, and desktop
@@ -95,7 +103,10 @@ The UI is designed with a mobile-first approach using Tailwind CSS:
 ## Project Challenges and Solutions
 
 ### Challenge: API Rate Limiting
-**Solution**: Implemented efficient caching with React Query and optimized API calls to stay within GitHub's rate limits.
+**Solution**: 
+- Implemented efficient caching with React Query to minimize API calls
+- Added GitHub token authentication to increase API rate limits from 60 to 5,000 requests per hour
+- Optimized API endpoints with proper error handling for rate limit issues
 
 ### Challenge: Handling Large Data Sets
 **Solution**: Implemented pagination for repositories (up to 300) to balance between comprehensive data and performance.
@@ -108,7 +119,6 @@ The UI is designed with a mobile-first approach using Tailwind CSS:
 
 ## Future Enhancements
 
-- OAuth integration for authenticated requests to increase API rate limits
 - Additional data visualizations (language usage over time, contribution graphs)
 - Repository comparison feature
 - User activity timeline
@@ -142,6 +152,7 @@ This project is already configured to work seamlessly on Replit:
 2. Click the "Deploy" button in the Replit interface
 3. Follow the prompts to configure your deployment
 4. Your application will be available at your-repl-name.your-username.repl.co
+5. Make sure to set the GITHUB_TOKEN environment variable in Replit Secrets
 
 ### Option 2: Deploying on Vercel
 
@@ -153,7 +164,7 @@ For a production-grade deployment:
 4. Configure the build settings:
    - Build Command: Use the appropriate build command
    - Output Directory: `dist`
-5. Set environment variables if needed
+5. Set environment variables if needed (including GITHUB_TOKEN)
 6. Deploy with the "Deploy" button
 
 ### Option 3: Manual Deployment
@@ -181,8 +192,9 @@ For production deployment, consider the following best practices:
 3. Consider implementing rate limiting for API endpoints
 4. Add proper error logging for production environments
 5. Set up HTTPS for secure communication
+6. **Important**: Set the GITHUB_TOKEN environment variable to enable authenticated GitHub API requests
 
-Note: This application uses GitHub's public API which has rate limits. For production use with higher API limits, consider implementing GitHub OAuth authentication.
+Note: This application uses GitHub's API with token authentication to increase rate limits. Make sure to set up your GitHub token in the environment variables.
 
 ## Local Development Setup
 
@@ -193,6 +205,7 @@ Follow these steps to set up the project locally for development:
 - Node.js (v18 or later recommended)
 - A package manager like npm or yarn
 - Git
+- GitHub personal access token (for API access)
 
 ### Step 1: Clone the Repository
 
@@ -219,12 +232,15 @@ This will install all dependencies listed in package.json, including:
 
 ### Step 3: Environment Setup
 
-Create a `.env` file in the root directory with the following variables (if needed):
+Create a `.env` file in the root directory with the following variables:
 
 ```
 PORT=5000
 NODE_ENV=development
+GITHUB_TOKEN=your_github_personal_access_token
 ```
+
+Replace `your_github_personal_access_token` with a valid GitHub token to avoid API rate limiting.
 
 ### Step 4: Start Development Server
 
