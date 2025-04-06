@@ -29,6 +29,7 @@ export default function UserProfile() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const [sortBy, setSortBy] = useState<"stars" | "updated" | "name">("stars");
+  const [showAllRepos, setShowAllRepos] = useState(false);
 
   // Fetch GitHub user data
   const {
@@ -171,15 +172,31 @@ export default function UserProfile() {
                   </div>
                   
                   <div className="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar pr-2">
-                    {sortedRepos?.slice(0, 10).map((repo) => (
+                    {sortedRepos?.slice(0, showAllRepos ? undefined : 10).map((repo) => (
                       <RepositoryCard key={repo.id} repository={repo} />
                     ))}
                   </div>
                   
-                  {sortedRepos && sortedRepos.length > 10 && (
+                  {sortedRepos && sortedRepos.length > 10 && !showAllRepos && (
                     <div className="mt-4 text-center">
-                      <Button variant="link" className="text-primary">
+                      <Button 
+                        variant="link" 
+                        className="text-primary"
+                        onClick={() => setShowAllRepos(true)}
+                      >
                         View all repositories
+                      </Button>
+                    </div>
+                  )}
+                  
+                  {showAllRepos && (
+                    <div className="mt-4 text-center">
+                      <Button 
+                        variant="link" 
+                        className="text-primary"
+                        onClick={() => setShowAllRepos(false)}
+                      >
+                        Show less
                       </Button>
                     </div>
                   )}
