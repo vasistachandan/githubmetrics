@@ -44,18 +44,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Username is required" });
       }
       
-      const response = await axios.get(`${GITHUB_API_BASE}/users/${username}/repos`, {
-        params: {
-          sort: "updated",
-          per_page: 100
-        },
-        headers: {
-          Accept: "application/vnd.github.v3+json",
-          "User-Agent": "GitHub-Metrics-App"
-        }
-      });
+      // Fetch up to 300 repositories using pagination
+      // (GitHub API has a per_page limit of 100)
+      const allRepos = [];
+      let page = 1;
+      let hasMorePages = true;
+      const maxPages = 3; // Limit to 3 pages (300 repos) to avoid excessive API calls
       
-      res.json(response.data);
+      while (hasMorePages && page <= maxPages) {
+        const response = await axios.get(`${GITHUB_API_BASE}/users/${username}/repos`, {
+          params: {
+            sort: "updated",
+            per_page: 100,
+            page: page
+          },
+          headers: {
+            Accept: "application/vnd.github.v3+json",
+            "User-Agent": "GitHub-Metrics-App"
+          }
+        });
+        
+        if (response.data.length > 0) {
+          allRepos.push(...response.data);
+          page++;
+        } else {
+          hasMorePages = false;
+        }
+      }
+      
+      res.json(allRepos);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         return res.status(error.response.status).json({
